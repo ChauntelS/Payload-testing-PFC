@@ -15,7 +15,11 @@ export const Users: CollectionConfig = {
     create: () => true, // public sign up
 
     read: ({req}) => !!req.user,
-    update: ({req}) => !!req.user,
+  update: ({req, id}) => {
+    if (!req.user) return false
+    if (req.user.role === 'admin') return true
+    return req.user.id === id
+  },
     delete: ({req}) => req.user?.role === 'admin',
   },
 
