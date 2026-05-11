@@ -26,13 +26,13 @@ export async function DashboardNav() {
       </div>
 
       {hasPermission(user, PERMISSIONS.DONATE) && (
-        <Link href="/dashboard/donate">
+        <Link href="/donations">
           Make a Donation
         </Link>
       )}
 
       {hasPermission(user, PERMISSIONS.DONATION_MANAGE) && (
-        <Link href="/dashboard/donations">
+        <Link href="/admin/collections/donations">
           Manage Donations
         </Link>
       )}

@@ -10,6 +10,10 @@ export default async function HubDashboard() {
     redirect('/dashboard')
   }
 
+  if (user.role !== 'hub' && user.role !== 'admin') {
+    redirect('/dashboard')
+  }
+
   return (
     <div>
       <h1>Hub Member Dashboard</h1>

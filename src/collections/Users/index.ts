@@ -7,6 +7,7 @@ export const Users: CollectionConfig = {
   auth: true,
   
   access: {
+    // admin: authenticated,
     admin: ({req}) => {
       if (!req.user) return false
       return req.user.role === 'admin'
