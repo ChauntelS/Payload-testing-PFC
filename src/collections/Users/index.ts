@@ -53,6 +53,12 @@ export const Users: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'community',
+
+      access: {
+    update: ({ req }) => {
+      return req.user?.role === 'admin'
+    },
+  },
       options: [
         { label: 'Community Member', value: 'community' },
         { label: 'Hub Member', value: 'hub' },

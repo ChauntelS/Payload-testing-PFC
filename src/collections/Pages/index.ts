@@ -2,16 +2,23 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
+
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
+
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+
+
 
 import {
   MetaDescriptionField,
@@ -60,49 +67,117 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       required: true,
     },
+    // PAGE ACCESS CONTROL
     {
-      type: 'tabs',
-      tabs: [
+      name: 'requiresAuth',
+      type: 'checkbox',
+      label: 'Require Login',
+      defaultValue: false,
+
+      admin: {
+        position: 'sidebar',
+      },
+    },
+
+    {
+      name: 'allowedRoles',
+      type: 'select',
+      hasMany: true,
+      label: 'Allowed Roles',
+
+      options: [
         {
-          fields: [hero],
-          label: 'Hero',
+          label: 'PFC Admin',
+          value: 'admin',
         },
         {
+          label: 'Hub Staff',
+          value: 'staff',
+        },
+        {
+          label: 'PFC Manager',
+          value: 'manager',
+        },
+        {
+          label: 'Hub Member',
+          value: 'hub',
+        },
+        {
+          label: 'Community Member',
+          value: 'community',
+        },
+      ],
+
+      admin: {
+        position: 'sidebar',
+
+        // only show if auth required
+        condition: (_, siblingData) => {
+          return siblingData.requiresAuth
+        },
+      },
+    },
+    {
+      type: 'tabs',
+
+      tabs: [
+        {
+          label: 'Hero',
+
+          fields: [hero],
+        },
+
+        {
+          label: 'Content',
+
           fields: [
             {
               name: 'layout',
+
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+              ],
+
               required: true,
+
               admin: {
                 initCollapsed: true,
               },
             },
           ],
-          label: 'Content',
         },
+
         {
           name: 'meta',
+
           label: 'SEO',
+
           fields: [
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
               imagePath: 'meta.image',
             }),
+
             MetaTitleField({
               hasGenerateFn: true,
             }),
+
             MetaImageField({
               relationTo: 'media',
             }),
 
             MetaDescriptionField({}),
+
             PreviewField({
-              // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
-              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
@@ -110,27 +185,37 @@ export const Pages: CollectionConfig<'pages'> = {
         },
       ],
     },
+
     {
       name: 'publishedAt',
+
       type: 'date',
+
       admin: {
         position: 'sidebar',
       },
     },
+
     slugField(),
   ],
+
   hooks: {
     afterChange: [revalidatePage],
+
     beforeChange: [populatePublishedAt],
+
     afterDelete: [revalidateDelete],
   },
+
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 100,
       },
+
       schedulePublish: true,
     },
+
     maxPerDoc: 50,
   },
 }
