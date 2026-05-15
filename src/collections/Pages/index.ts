@@ -63,6 +63,13 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   fields: [
     {
+    name: 'tenant',
+    type: 'relationship',
+    relationTo: 'tenants',
+    required: true,
+    admin: { position: 'sidebar' },
+    },
+    {
       name: 'title',
       type: 'text',
       required: true,

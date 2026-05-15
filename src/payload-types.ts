@@ -74,6 +74,7 @@ export interface Config {
     users: User;
     events: Event;
     donations: Donation;
+    tenants: Tenant;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -98,6 +99,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     donations: DonationsSelect<false> | DonationsSelect<true>;
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -161,6 +163,7 @@ export interface UserAuthOperations {
  */
 export interface Page {
   id: number;
+  tenant: number | Tenant;
   title: string;
   requiresAuth?: boolean | null;
   allowedRoles?: ('admin' | 'staff' | 'manager' | 'hub' | 'community')[] | null;
@@ -225,6 +228,42 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants".
+ */
+export interface Tenant {
+  id: number;
+  name: string;
+  /**
+   * Used for domain-based tenant handling
+   */
+  domain?: string | null;
+  /**
+   * Used for url paths, example: /tenant-slug/page-slug
+   */
+  slug: string;
+  /**
+   * If checked, logging in is not required to read. Useful for building public pages.
+   */
+  allowPublicRead?: boolean | null;
+  branding?: {
+    /**
+     * E.g., #000000
+     */
+    primaryColor?: string | null;
+    logoText?: string | null;
+  };
+  navItems?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1030,6 +1069,10 @@ export interface PayloadLockedDocument {
         value: number | Donation;
       } | null)
     | ({
+        relationTo: 'tenants';
+        value: number | Tenant;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1096,6 +1139,7 @@ export interface PayloadMigration {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   requiresAuth?: T;
   allowedRoles?: T;
@@ -1415,6 +1459,31 @@ export interface DonationsSelect<T extends boolean = true> {
   description?: T;
   goalAmount?: T;
   currentAmount?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  name?: T;
+  domain?: T;
+  slug?: T;
+  allowPublicRead?: T;
+  branding?:
+    | T
+    | {
+        primaryColor?: T;
+        logoText?: T;
+      };
+  navItems?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

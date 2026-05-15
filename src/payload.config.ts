@@ -16,6 +16,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import {Events} from './collections/Events'
 import { Donations } from './collections/Donations'
+import { Tenants } from './collections/Tenants'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -64,7 +65,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Events, Donations],
+  collections: [Pages, Posts, Media, Categories, Users, Events, Donations, Tenants  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    // "baseUrl": ".",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "target": "ES2022",
     "lib": [
@@ -28,9 +28,7 @@
       "@payload-config": [
         "./src/payload.config.ts"
       ],
-      "react": [
-        "./node_modules/@types/react"
-      ],
+    
       "@/*": [
         "./src/*"
       ]

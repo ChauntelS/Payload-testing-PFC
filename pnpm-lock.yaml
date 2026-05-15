@@ -23,6 +23,9 @@ importers:
       '@payloadcms/plugin-form-builder':
         specifier: 3.84.1
         version: 3.84.1(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.3(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.7.3)
+      '@payloadcms/plugin-multi-tenant':
+        specifier: ^3.84.1
+        version: 3.84.1(@payloadcms/ui@3.84.1(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.3(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.7.3))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))
       '@payloadcms/plugin-nested-docs':
         specifier: 3.84.1
         version: 3.84.1(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))
@@ -1482,6 +1485,12 @@ packages:
       payload: 3.84.1
       react: ^19.0.1 || ^19.1.2 || ^19.2.1
       react-dom: ^19.0.1 || ^19.1.2 || ^19.2.1
+
+  '@payloadcms/plugin-multi-tenant@3.84.1':
+    resolution: {integrity: sha512-Aql0zsxv20f4PSMZqKMWnOieYv80I5HZKyA6h41A4T/w6Wki12P5GsZxh2wGDW9l/+RHkor8i6pMrxWj28UUaw==}
+    peerDependencies:
+      '@payloadcms/ui': 3.84.1
+      payload: 3.84.1
 
   '@payloadcms/plugin-nested-docs@3.84.1':
     resolution: {integrity: sha512-5UuyTkzuc/ALC9oPz8dGQkQ/eOF/HrxKVi88YnKsBHnG4mCWTRxXVMYXjuIb8pH8UFhZpQgphuQqDljw9ZcOqA==}
@@ -6250,6 +6259,11 @@ snapshots:
       - next
       - supports-color
       - typescript
+
+  '@payloadcms/plugin-multi-tenant@3.84.1(@payloadcms/ui@3.84.1(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.3(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.7.3))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))':
+    dependencies:
+      '@payloadcms/ui': 3.84.1(@types/react@19.2.14)(monaco-editor@0.55.1)(next@16.2.3(@babel/core@7.29.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.4))(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.7.3)
+      payload: 3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3)
 
   '@payloadcms/plugin-nested-docs@3.84.1(payload@3.84.1(bufferutil@4.1.0)(graphql@16.13.2)(typescript@5.7.3))':
     dependencies:
